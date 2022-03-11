@@ -13,6 +13,8 @@ public class DbManager {
                 "jdbc:mariadb://localhost:3306/tpsit",
                 "root", ""
         );
+
+        setupDb();
     }
 
     public static DbManager getInstance() throws SQLException {
@@ -20,6 +22,12 @@ public class DbManager {
             instance = new DbManager();
 
         return instance;
+    }
+
+    private void setupDb() throws SQLException {
+        String setupQuery = "CREATE DATABASE IF NOT EXISTS tpsit;CREATE TABLE Studenti(id INT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(30) NOT NULL, cognome VARCHAR(30) NOT NULL);";
+        PreparedStatement statement = connection.prepareStatement(setupQuery);
+        statement.executeQuery();
     }
 
     public boolean registraUtente(String nome, String cognome) {
