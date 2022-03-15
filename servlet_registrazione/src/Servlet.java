@@ -3,25 +3,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Servlet extends HttpServlet {
-    private DbManager dbManager = null;
-
-    public Servlet() {
-        try {
-            dbManager = DbManager.getInstance();
-        } catch (Exception e) {
-            System.out.println("Errore servlet registrazione studenti:\n" + e);
-        }
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
 
-        resp.getOutputStream().print(
-                dbManager.registraUtente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore
-        );
+        DbManager dbManager;
+        try {
+            dbManager = DbManager.getInstance();
+            resp.getOutputStream().print(
+                    dbManager.registraUtente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore
+            );
+        } catch (SQLException e) {
+            resp.getOutputStream().print(PresentationManager.paginaErrore);
+            e.printStackTrace();
+        }
     }
 }
