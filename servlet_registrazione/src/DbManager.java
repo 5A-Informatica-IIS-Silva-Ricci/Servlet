@@ -12,7 +12,7 @@ public class DbManager {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/tpsit",
-                "root", ""
+                "tpsit", "tpsit"
         );
     }
 
@@ -25,6 +25,20 @@ public class DbManager {
 
     public boolean registraUtente(String nome, String cognome) {
         String query = "INSERT INTO Studenti (nome, cognome) VALUES (?, ?)";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nome);
+            statement.setString(2, cognome);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean registraDocente(String nome, String cognome) {
+        String query = "INSERT INTO Docenti (nome, cognome) VALUES (?, ?)";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
