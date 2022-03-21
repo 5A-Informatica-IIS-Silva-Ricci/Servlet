@@ -17,7 +17,7 @@ public class Servlet extends HttpServlet {
             resp.getOutputStream().print(
                     dbManager.registraUtente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore
             );
-        } catch (SQLException e) {
+        } catch (Exception e) {
             resp.getOutputStream().print(PresentationManager.paginaErrore);
             e.printStackTrace();
         }
