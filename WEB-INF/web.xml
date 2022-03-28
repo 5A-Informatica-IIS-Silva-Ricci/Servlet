@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
+
     <servlet>
-        <servlet-name>registrazione_studente</servlet-name>
+        <servlet-name>registrazioneStudente</servlet-name>
         <servlet-class>Studente</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>registrazione_docente</servlet-name>
+        <servlet-name>registrazioneDocente</servlet-name>
         <servlet-class>Docente</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>registrazione_studente</servlet-name>
-        <url-pattern>/registrazione_studente</url-pattern>
+        <servlet-name>registrazioneStudente</servlet-name>
+        <url-pattern>/registrazioneStudente</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>registrazione_docente</servlet-name>
-        <url-pattern>/registrazione_docente</url-pattern>
+        <servlet-name>registrazioneDocente</servlet-name>
+        <url-pattern>/registrazioneDocente</url-pattern>
     </servlet-mapping>
 </web-app>

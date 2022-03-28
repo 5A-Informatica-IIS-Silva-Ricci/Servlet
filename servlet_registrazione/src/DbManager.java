@@ -1,3 +1,4 @@
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ public class DbManager {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/tpsit",
-                "tpsit", "tpsit"
+                "root", ""
         );
     }
 
@@ -23,24 +24,21 @@ public class DbManager {
         return instance;
     }
 
-    public boolean registraUtente(String nome, String cognome) {
-        String query = "INSERT INTO Studenti (nome, cognome) VALUES (?, ?)";
-
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, nome);
-            statement.setString(2, cognome);
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            return false;
-        }
+    public boolean registraStudente(String nome, String cognome) {
+        String query = "INSERT INTO tpsit.studenti (nome, cognome) VALUES (?, ?)";
+        System.out.println("Sono nella funzione studente "+nome+" "+cognome+" "+query);
+        return eseguiQuery(nome, cognome, query);
     }
 
     public boolean registraDocente(String nome, String cognome) {
-        String query = "INSERT INTO Docenti (nome, cognome) VALUES (?, ?)";
+        String query = "INSERT INTO tpsit.docenti (nome, cognome) VALUES (?, ?)";
+        System.out.println("Sono nella funzione docente "+nome+" "+cognome+" "+query);
+        return eseguiQuery(nome, cognome, query);
+    }
 
+    public boolean eseguiQuery(String nome, String cognome, String query){
         try {
+            System.out.println(nome+" "+cognome+" "+query);
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, nome);
             statement.setString(2, cognome);

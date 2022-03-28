@@ -9,8 +9,10 @@ public class Docente extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
+
         DbManager dbManager;
         try {
+            System.out.println("Sono all'interno della classe docente.java");
             dbManager = DbManager.getInstance();
             resp.getOutputStream().print(
                     dbManager.registraDocente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore

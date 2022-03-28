@@ -12,9 +12,10 @@ public class Studente extends HttpServlet {
 
         DbManager dbManager;
         try {
+            System.out.println("Sono all'interno della classe studente.java");
             dbManager = DbManager.getInstance();
             resp.getOutputStream().print(
-                    dbManager.registraUtente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore
+                    dbManager.registraStudente(nome, cognome) ? PresentationManager.paginaSuccesso : PresentationManager.paginaErrore
             );
         } catch (Exception e) {
             resp.getOutputStream().print(PresentationManager.paginaErrore);
