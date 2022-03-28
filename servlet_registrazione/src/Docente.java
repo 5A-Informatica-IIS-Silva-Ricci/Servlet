@@ -9,7 +9,6 @@ public class Docente extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nome = req.getParameter("nome");
         String cognome = req.getParameter("cognome");
-
         DbManager dbManager;
         try {
             dbManager = DbManager.getInstance();
