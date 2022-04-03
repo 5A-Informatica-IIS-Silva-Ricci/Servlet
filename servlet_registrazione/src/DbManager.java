@@ -26,13 +26,13 @@ public class DbManager {
 
     public boolean registraStudente(String nome, String cognome) {
         String query = "INSERT INTO tpsit.studenti (nome, cognome) VALUES (?, ?)";
-        System.out.println("Sono nella funzione studente "+nome+" "+cognome+" "+query);
+        //System.out.println("Sono nella funzione studente "+nome+" "+cognome+" "+query);
         return eseguiQuery(nome, cognome, query);
     }
 
     public boolean registraDocente(String nome, String cognome) {
         String query = "INSERT INTO tpsit.docenti (nome, cognome) VALUES (?, ?)";
-        System.out.println("Sono nella funzione docente "+nome+" "+cognome+" "+query);
+        //System.out.println("Sono nella funzione docente "+nome+" "+cognome+" "+query);
         return eseguiQuery(nome, cognome, query);
     }
 
