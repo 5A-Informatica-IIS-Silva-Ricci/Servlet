@@ -1,19 +1,18 @@
-import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DbManager {
     private static DbManager instance = null;
+    private static String nomeDb = "lunedi_5ai";
+    private static String nomeTabella = "nazioni";
 
     private final Connection connection;
 
     private DbManager() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/tpsit",
-                "root", ""
+                "jdbc:mysql://localhost:3306/" + nomeDb,
+                "tpsit", "tpsit"
         );
     }
 
@@ -24,21 +23,27 @@ public class DbManager {
         return instance;
     }
 
-    public boolean registraStudente(String nome, String cognome) {
-        String query = "INSERT INTO tpsit.studenti (nome, cognome) VALUES (?, ?)";
-        //System.out.println("Sono nella funzione studente "+nome+" "+cognome+" "+query);
-        return eseguiQuery(nome, cognome, query);
+    public ArrayList<BeanNazione> getNazioni() throws SQLException {
+        ArrayList<BeanNazione> nazioni = new ArrayList<>();
+        String query = "SELECT * FROM " + nomeTabella + ";";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            String nazione = rs.getString("nazione");
+            String sigla = rs.getString("sigla");
+
+            nazioni.add(new BeanNazione(nazione, sigla));
+        }
+
+        return nazioni;
     }
 
-    public boolean registraDocente(String nome, String cognome) {
-        String query = "INSERT INTO tpsit.docenti (nome, cognome) VALUES (?, ?)";
-        //System.out.println("Sono nella funzione docente "+nome+" "+cognome+" "+query);
-        return eseguiQuery(nome, cognome, query);
-    }
+    /*
+    public boolean registraUtente(String nome, String cognome) {
+        String query = "INSERT INTO " + nomeTabella + " (nome, cognome) VALUES (?, ?)";
 
-    public boolean eseguiQuery(String nome, String cognome, String query){
         try {
-            System.out.println(nome+" "+cognome+" "+query);
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, nome);
             statement.setString(2, cognome);
@@ -48,4 +53,22 @@ public class DbManager {
             return false;
         }
     }
+     */
+
+    /*
+    public boolean registraDocente(String nome, String cognome) {
+        String query = "INSERT INTO Docenti (nome, cognome) VALUES (?, ?)";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nome);
+            statement.setString(2, cognome);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+     */
 }

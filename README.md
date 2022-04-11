@@ -1,9 +1,9 @@
-Realizzare un'applicazione web Java per la registrazione di uno studente nel DB del corso (5ai_dbtpsittest).
-L'applicazione sarà composta da:
-- Pagina html di presentazione iniziale con il form di inserimento dati dello studente
-- Servlet RegistrazioneStudente per l'esecuzione della query di inserimento in DB e la restituzione di una pagina di conferma.
-
+1) Creare un nuovo database `lunedi_5ai` che contiene una tabella `nazioni` con due campi stringa `nazione`, `sigla`.
+2) Popolare la tabella con 3 nazioni
+3) Creare una nuova applicazione web `nazioni` in tomcat
+4) Creare una servlet che esegua una select sulla tabella nazioni e inoltra la lista di bean nazioni ad una jsp
+5) Creare la jsp che visualizza le nazioni e le rispettive sigle
 
 ##### DB Info
-- DB nome = tpsit
-- DB tabella = Studenti
+- Nome utente = tpsit
+- Password utente = tpsit
